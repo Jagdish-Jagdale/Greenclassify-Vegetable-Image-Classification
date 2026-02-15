@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenClassify | Prediction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38ef7d;
+            --primary-dark: #11998e;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: url('https://wallpapers.com/images/hd/fruits-and-vegetables-5462-x-3072-background-823rjsovq6rbwwho.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 90px 20px 40px;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.22);
+            z-index: 0;
+        }
+
+        .navbar,
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(14, 48, 27, 0.82);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38ef7d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: white;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .studio-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        .studio-card {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 40px;
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-panel {
+            justify-content: space-between;
+        }
+
+        .analysis-chamber {
+            justify-content: flex-start;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(56, 239, 125, 0.1);
+            border: 1px solid rgba(56, 239, 125, 0.25);
+            color: var(--primary);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            width: fit-content;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .preview-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .preview-image {
+            width: 260px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 40px rgba(56, 239, 125, 0.4);
+            animation: zoomIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .instruction-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .instruction-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .step-num {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .upload-area {
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            width: 100%;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-area::before,
+        .upload-area::after,
+        .upload-brackets::before,
+        .upload-brackets::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: var(--primary);
+            border-style: solid;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        /* Corner Brackets */
+        .upload-area::before {
+            top: 15px;
+            left: 15px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .upload-area::after {
+            top: 15px;
+            right: 15px;
+            border-width: 2px 2px 0 0;
+        }
+
+        .upload-brackets::before {
+            bottom: 15px;
+            left: 15px;
+            border-width: 0 0 2px 2px;
+        }
+
+        .upload-brackets::after {
+            bottom: 15px;
+            right: 15px;
+            border-width: 0 2px 2px 0;
+        }
+
+        .upload-area:hover {
+            background: rgba(56, 239, 125, 0.03);
+            border-color: rgba(56, 239, 125, 0.3);
+            box-shadow: 0 0 30px rgba(56, 239, 125, 0.1);
+        }
+
+        .upload-area:hover::before,
+        .upload-area:hover::after,
+        .upload-area:hover .upload-brackets::before,
+        .upload-area:hover .upload-brackets::after {
+            opacity: 1;
+            width: 20px;
+            height: 20px;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(56, 239, 125, 0.1), transparent);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-area:hover .scan-line {
+            opacity: 1;
+            animation: technicalScan 3s linear infinite;
+        }
+
+        @keyframes technicalScan {
+            0% {
+                top: -100px;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        .upload-area.active-file {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .upload-area h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .upload-area p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(56, 239, 125, 0.3));
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .preview-container {
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #preview {
+            max-width: 100%;
+            max-height: 240px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(56, 239, 125, 0.2);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(56, 239, 125, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.2) !important;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            align-self: center;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        .file-info {
+            text-align: center;
+            color: var(--text-dim);
+            margin: 20px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .upload-area {
+                padding: 35px 15px;
+            }
+
+            .upload-icon {
+                font-size: 2.8em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="nav-brand">GreenClassify</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('about') }}" class="nav-link">About</a>
+            <a href="{{ url_for('contact') }}" class="nav-link">Contact</a>
+            <a href="{{ url_for('prediction_page') }}" class="nav-link active">Prediction</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="studio-layout">
+            <!-- Left Panel: Info & Control -->
+            <div class="studio-card control-panel">
+                <div>
+                    <div class="badge-status">
+                        <span class="status-dot"></span>
+                        Neural Engine Active
+                    </div>
+                    <h1>Smart<br>Analysis.</h1>
+                    <p class="subtitle">Quickly identify any vegetable with a simple photo. Our AI helps you understand
+                        your produce in seconds.</p>
+
+                    <ul class="instruction-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <span>Ensure good lighting and centered focus on the produce.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <span>Supported file formats include JPG, PNG, and WEBP.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <span>Maximum file size limit is 16MB for deep analysis.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="{{ url_for('home') }}" class="btn-secondary">← Back to Dashboard</a>
+            </div>
+
+            <!-- Right Panel: Analysis Chamber -->
+            <div class="analysis-chamber studio-card">
+                <form id="upload-form" action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                    <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                        <div class="upload-brackets"></div>
+                        <div class="scan-line"></div>
+                        <div id="drop-zone-content">
+                            <span class="upload-icon">🌿</span>
+                            <h3>Select your Photo</h3>
+                            <p>Drop your image here or click to browse</p>
+                        </div>
+                        <div id="image-preview" class="preview-container"></div>
+                        <input type="file" id="file-input" name="file" accept="image/*" style="display: none"
+                            onchange="handleFileSelect(this)">
+                    </div>
+
+                    <div id="file-details" class="file-info" style="display: none;">
+                        <span id="filename-display">specimen_alpha.png</span>
+                        <span style="margin: 0 10px; opacity: 0.3;">|</span>
+                        <span id="filesize-display">2.4 MB</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="analyze-btn" disabled>
+                        Analyze <span style="font-size: 1.2rem; margin-left: 8px;">✨</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const dropZoneContent = document.getElementById('drop-zone-content');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const fileDetails = document.getElementById('file-details');
+        const filenameDisplay = document.getElementById('filename-display');
+        const filesizeDisplay = document.getElementById('filesize-display');
+
+        // Drag and drop events
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('active-file'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('active-file'), false);
+        });
+
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            handleFileSelect(fileInput);
+        }
+
+        function handleFileSelect(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" class="preview-image">`;
+                    imagePreview.style.display = 'flex';
+                    dropZoneContent.style.display = 'none';
+                    dropZone.classList.add('active-file');
+
+                    // Update file info
+                    filenameDisplay.textContent = file.name;
+                    filesizeDisplay.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+                    fileDetails.style.display = 'block';
+
+                    analyzeBtn.disabled = false;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>

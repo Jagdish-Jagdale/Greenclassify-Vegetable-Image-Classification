@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenClassify | Contact Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-accent: #38ef7d;
+            --primary-dark: #11998e;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: url('https://wallpapers.com/images/hd/fruits-and-vegetables-5462-x-3072-background-823rjsovq6rbwwho.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(14, 48, 27, 0.82);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: white;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            padding: 80px 5% 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+            animation: fadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-section h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+        }
+
+        .info-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(56, 239, 125, 0.15);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            border: 1px solid rgba(56, 239, 125, 0.3);
+        }
+
+        .detail-text h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-accent);
+            margin-bottom: 2px;
+        }
+
+        .detail-text p {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            color: white;
+        }
+
+        .form-section {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 40px;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .required-star {
+            color: #ff4d4d;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #ffffff;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 15px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: none;
+            /* Allows the placeholder to stay capitalized */
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 20px rgba(56, 239, 125, 0.15);
+        }
+
+        /* Professional Toast Styling */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(44, 44, 46, 0.9);
+            /* Apple's iOS/macOS Dark Translucent */
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px) scale(0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .toast-icon {
+            width: 34px;
+            height: 34px;
+            background: #34C759;
+            /* Apple iOS System Green */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+        }
+
+        .toast-content h5 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .toast-content p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        textarea.form-control {
+            min-height: 140px;
+            resize: none;
+        }
+
+        .btn-send {
+            width: 100%;
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 100px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-send:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(56, 239, 125, 0.4);
+            filter: brightness(1.1);
+        }
+
+        @media (max-width: 1024px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .info-section {
+                text-align: center;
+            }
+
+            .contact-details {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: span 1;
+            }
+
+            .form-section {
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="nav-brand">GreenClassify</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('about') }}" class="nav-link">About</a>
+            <a href="{{ url_for('contact') }}" class="nav-link active">Contact</a>
+            <a href="{{ url_for('prediction_page') }}" class="nav-link">Prediction</a>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="contact-layout">
+            <div class="info-section">
+                <h1>Let's Connect<br>and Innovate.</h1>
+                <p>Have questions about our AI model or interested in a collaboration? Our team of researchers and
+                    developers is here to help.</p>
+
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <div class="detail-icon"><span>✉️</span></div>
+                        <div class="detail-text">
+                            <h4>Email Us</h4>
+                            <p>hello@greenclassify.com</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon"><span>📍</span></div>
+                        <div class="detail-text">
+                            <h4>Location</h4>
+                            <p>AI Innovation Hub, Green Valley</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <form id="contactForm">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Your Name <span class="required-star">*</span></label>
+                            <input type="text" id="nameInput" class="form-control" placeholder="Enter your name"
+                                required>
+                        </div>
+                        <div class="input-group">
+                            <label>Your E-mail <span class="required-star">*</span></label>
+                            <input type="email" id="emailInput" class="form-control"
+                                placeholder="Enter your email address" required style="text-transform: lowercase;">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>WHAT'S ON YOUR MIND?</label>
+                            <textarea class="form-control" placeholder="Your Message..." required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-send">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast UI -->
+    <div class="toast-container" id="toastContainer">
+        <div class="toast" id="successToast">
+            <div class="toast-icon">✓</div>
+            <div class="toast-content">
+                <h5>Request Received</h5>
+                <p>An AI specialist will reach out to you within 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show professional toast
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+
+            // Reset form
+            this.reset();
+
+            // Hide toast after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        });
+    </script>
+</body>
+
+</html>

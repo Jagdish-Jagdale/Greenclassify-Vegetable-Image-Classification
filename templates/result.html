@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenClassify | Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38ef7d;
+            --primary-dark: #11998e;
+            --glass: rgba(0, 0, 0, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: url('https://wallpapers.com/images/hd/fruits-and-vegetables-5462-x-3072-background-823rjsovq6rbwwho.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 90px 20px 40px;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.22);
+            z-index: 0;
+        }
+
+        .navbar,
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(14, 48, 27, 0.82);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38ef7d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: white;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .report-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        .report-card {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 40px;
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(56, 239, 125, 0.1);
+            border: 1px solid rgba(56, 239, 125, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            animation: bounceIn 0.8s cubic-bezier(0.2, 1.5, 0.5, 1);
+        }
+
+        @keyframes bounceIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(56, 239, 125, 0.1);
+            border: 1px solid rgba(56, 239, 125, 0.25);
+            color: var(--primary);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            width: fit-content;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+        }
+
+        .result-display {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .specimen-result-image {
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 40px rgba(56, 239, 125, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .vegetable-name-v7 {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #bbb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .confidence-rate-v7 {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(56, 239, 125, 0.1);
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1px solid rgba(56, 239, 125, 0.2);
+        }
+
+        .confidence-score {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.08);
+            border: 1px solid rgba(255, 193, 7, 0.25);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .warning-box p {
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .top-predictions {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: left;
+            border: 1px solid var(--glass-border);
+        }
+
+        .top-predictions h3 {
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
+
+        .match-card {
+            background: transparent;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .match-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .prediction-name {
+            font-weight: 600;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .prediction-confidence {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38ef7d, #11998e);
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            width: var(--confidence, 0%);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(56, 239, 125, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .filename {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-top: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .vegetable-name-v7 {
+                font-size: 1.8em;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .prediction-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="nav-brand">GreenClassify</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('about') }}" class="nav-link">About</a>
+            <a href="{{ url_for('contact') }}" class="nav-link">Contact</a>
+            <a href="{{ url_for('prediction_page') }}" class="nav-link active">Prediction</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="report-layout">
+            <!-- Left Panel: Main Result -->
+            <div class="report-card">
+                <div>
+                    <div class="success-badge">
+                        <span>✓</span>
+                        Analysis Complete
+                    </div>
+                    <h1>Prediction<br>Report.</h1>
+
+                    <div class="result-display"
+                        style="border-left: 4px solid var(--primary); align-items: flex-start; background: rgba(255,255,255,0.02);">
+                        <div class="confidence-score" style="font-size: 0.8rem; opacity: 0.7;">Status</div>
+                        <div class="vegetable-name-v7"
+                            style="font-size: 2rem; text-align: left; background: none; -webkit-text-fill-color: white;">
+                            Verified</div>
+                        <div class="confidence-score" style="font-size: 0.8rem; opacity: 0.7;">Scan ID: {{
+                            filename[:8].upper() }}</div>
+                    </div>
+
+                    {% if low_confidence %}
+                    <div class="warning-box">
+                        <span>⚠️</span>
+                        <p><strong>Low Confidence Warning:</strong> Result is below 60%. We recommend re-scanning with
+                            improved lighting or a more centered angle.</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="button-group">
+                    <a href="{{ url_for('prediction_page') }}" class="btn btn-primary">Run New Analysis</a>
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary">← Back to Home</a>
+                </div>
+
+                {% if filename %}
+                <p class="filename">Report ID: GL-{{ filename[:8] }} • Analyzed: {{ filename }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Right Panel: Probabilities -->
+            <div class="report-card">
+                <div class="result-display">
+                    <img src="{{ url_for('uploaded_file', filename=filename) }}" class="specimen-result-image"
+                        alt="Analyzed Specimen">
+                    <div class="vegetable-name-v7">{{ vegetable }}</div>
+                </div>
+
+                <div style="width: 100%; margin: 20px auto 0;">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 1px;">
+                        <span>MATCH ACCURACY</span>
+                        <span>{{ confidence }}%</span>
+                    </div>
+                    <div class="progress-bar" style="height: 8px; background: rgba(255,255,255,0.05);">
+                        <div class="progress-fill"
+                            style="--confidence: {{ confidence }}%; box-shadow: 0 0 15px rgba(56, 239, 125, 0.4);">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
