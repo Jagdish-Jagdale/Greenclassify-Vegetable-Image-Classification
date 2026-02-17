@@ -448,36 +448,39 @@
                 <div>
                     <div class="success-badge">
                         <span>✓</span>
-                        Analysis Complete
+                        Scan Successful!
                     </div>
-                    <h1>Prediction<br>Report.</h1>
+                    <h1>Your Vegetable<br>Insight.</h1>
 
                     <div class="result-display"
                         style="border-left: 4px solid var(--primary); align-items: flex-start; background: rgba(255,255,255,0.02);">
-                        <div class="confidence-score" style="font-size: 0.8rem; opacity: 0.7;">Status</div>
+                        <div class="confidence-score" style="font-size: 0.8rem; opacity: 0.7;">Result</div>
                         <div class="vegetable-name-v7"
                             style="font-size: 2rem; text-align: left; background: none; -webkit-text-fill-color: white;">
-                            Verified</div>
-                        <div class="confidence-score" style="font-size: 0.8rem; opacity: 0.7;">Scan ID: {{
-                            filename[:8].upper() }}</div>
+                            Identified</div>
+                        <div class="confidence-score"
+                            style="font-size: 0.80rem; opacity: 0.8; text-transform: none; letter-spacing: 0;">Analyzed
+                            using our latest AI Model</div>
                     </div>
 
                     {% if low_confidence %}
                     <div class="warning-box">
-                        <span>⚠️</span>
-                        <p><strong>Low Confidence Warning:</strong> Result is below 60%. We recommend re-scanning with
-                            improved lighting or a more centered angle.</p>
+                        <span>💡</span>
+                        <p><strong>A Quick Note:</strong> The image was a bit tricky to read (confidence below 60%). For
+                            better results, try scanning again with clearer lighting or a more direct angle.</p>
                     </div>
                     {% endif %}
                 </div>
 
                 <div class="button-group">
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary">← Back to Dashboard</a>
                     <a href="{{ url_for('prediction_page') }}" class="btn btn-primary">Run New Analysis</a>
-                    <a href="{{ url_for('home') }}" class="btn btn-secondary">← Back to Home</a>
                 </div>
 
                 {% if filename %}
-                <p class="filename">Report ID: GL-{{ filename[:8] }} • Analyzed: {{ filename }}</p>
+                <p class="filename" style="text-transform: none; opacity: 0.8;text-align: center;">Every scan helps you
+                    understand your
+                    produce better.</p>
                 {% endif %}
             </div>
 
@@ -492,7 +495,7 @@
                 <div style="width: 100%; margin: 20px auto 0;">
                     <div
                         style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 1px;">
-                        <span>MATCH ACCURACY</span>
+                        <span>CONFIDENCE LEVEL</span>
                         <span>{{ confidence }}%</span>
                     </div>
                     <div class="progress-bar" style="height: 8px; background: rgba(255,255,255,0.05);">
