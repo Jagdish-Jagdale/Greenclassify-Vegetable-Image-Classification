@@ -254,7 +254,7 @@ def page_not_found(e):
 
 # Main
 if __name__ == "__main__":
-    # Create uploads folders
+    # Create uploads folder
     Path(app.config["UPLOAD_FOLDER"]).mkdir(exist_ok=True)
 
     print("\n" + "=" * 70)
